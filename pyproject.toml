@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "leakwatch"
+version = "1.0.0"
+description = "Find API keys, passwords and other secrets in code and git history before they leak."
+readme = "README.md"
+license = "MIT"
+authors = [{ name = "Hamsa Hassan" }]
+requires-python = ">=3.10"
+dependencies = []
+keywords = ["security", "secrets", "git", "pre-commit", "devsecops"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Environment :: Console",
+    "Topic :: Security",
+    "Topic :: Software Development :: Quality Assurance",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-cov>=5", "ruff>=0.6"]
+
+[project.scripts]
+leakwatch = "leakwatch.cli:main"
+
+[project.urls]
+Repository = "https://github.com/HamsaALT/leakwatch"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.coverage.run]
+source = ["leakwatch"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+
+[tool.ruff]
+line-length = 110
+target-version = "py310"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "RUF"]
